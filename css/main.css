@@ -1,0 +1,11 @@
+header {
+    background-color: var(--color-800);
+}
+
+.strong-margin-left {
+    margin-left: 10px; /* Ajusta el valor según sea necesario */
+}
+
+.link:hover{
+    color: var(--color-500);
+}

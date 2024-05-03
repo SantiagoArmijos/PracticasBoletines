@@ -1,0 +1,91 @@
+* {
+    box-sizing: content-box;
+  }
+  
+  /* Lista */
+  
+  nav ul li a {
+    color:red;
+  }
+  
+  nav ul {
+    color:blue;
+  }
+  
+  h1, h2, h3, h4 {
+    color: cyan;
+  }
+  
+  h1 {
+    color:cyan;
+  }
+  
+  h2 {
+    color:cyan;
+  }
+  
+  h3 {
+    color:cyan;
+  }
+  
+  h4 {
+    color:cyan;
+  }
+  
+  #navegador {
+    color:yellow;
+  }
+  
+  /* Clases de colores */
+  .azul {
+    background: blue;
+  }
+  
+  .rojo {
+    background: red;
+  }
+  
+  .negro {
+    background: black;
+  }
+  
+  .container {
+    margin: 30px 0px;
+  }
+  
+  .borde {
+    border: solid 2px;
+  }
+  
+  .cuadrado {
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    color: white;
+  }
+  
+  .flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  
+  /*
+  .flex {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  .flex {
+    display: flex;
+    flex-direction: column;
+  }
+  */
+  
+  /*
+  .flex {
+    display: flex;
+    flex-direction: column;
+  }
+  */
