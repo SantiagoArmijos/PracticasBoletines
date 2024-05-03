@@ -1,0 +1,43 @@
+.grid {
+    display: grid;
+    grid-template-areas:
+      "nav header header"
+      "nav section aside"
+      "nav section1 aside"
+      "nav footer footer";
+    grid-template-rows: 100px 1fr 1fr 75px;
+    grid-template-columns: 15% auto 10%;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .border {
+    background-color: #ffcf29;
+    padding: 15px;
+  }
+  
+  header {
+    grid-area: header;
+  }
+  
+  footer {
+    grid-area: footer;
+  }
+  
+  #section {
+    grid-area: section;
+  }
+  
+  #section1 {
+    grid-area: section1;
+  }
+  
+  nav {
+    grid-area: nav;
+  }
+  
+  aside {
+    grid-area: aside;
+  }
