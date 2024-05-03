@@ -1,50 +1,35 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=">
-  <title>Ejercicio 1 de Flexbox</title>
-  <link rel="stylesheet" href="../css/ejercicio1FlexBox.css">
+<title>Ejercicio 1 FlexBox</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/ejercicio1FlexBox.css">
 </head>
 <body>
-  
-  <!-- Repaso 1: ¿Los divs son bloque o en linea? -->
-  
-  <!-- 1. Según las clases que tenemos en el CSS como se agrega flexblox al container -->
 
-  <div class="container flex borde">
-    <div class="cuadrado azul">1</div>
-    <div class="cuadrado rojo">2</div>
-    <div class="cuadrado negro">3</div>
-    <div class="cuadrado negro">4</div>
-    <div class="cuadrado negro">5</div>
-    <div class="cuadrado negro">6</div>
-    <div class="cuadrado negro">7</div>
-    <div class="cuadrado negro">8</div>
-    <div class="cuadrado negro">9</div>
-    <div class="cuadrado negro">10</div>
-    <div class="cuadrado negro">11</div>
-    <div class="cuadrado negro">12</div>
-    <div class="cuadrado negro">13</div>
+  <!-- Header -->
+  <div class="header">
+    <h2>Header</h2>
   </div>
-  
-  <!-- 2. Qué paso con el alto? -->
-  <div class="container borde">
-    <div class="cuadrado azul">4</div>
-    <div class="cuadrado rojo">5</div>
-    <div class="cuadrado negro">6</div>
-  </div>
-  
-  
-  <!-- Repaso 2: ¿Los links son bloque o en linea? -->
-  
-  <!-- 3. Qué pasa si aplico al nav: flex con flex-direction:column? -->
-  <nav class="borde flex">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </nav>
 
+  <!-- Body -->
+  <div class="row">
+    <div class="nav">
+      <h2>Nav</h2>
+    </div>
+    <div class="article">
+      <h2>Article</h2>
+    </div>
+    <div class="aside">
+      <h2>Aside</h2>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <h2>Footer</h2>
+  </div>
 
 </body>
 </html>

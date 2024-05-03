@@ -1,91 +1,46 @@
 * {
-    box-sizing: content-box;
-  }
-  
-  /* Lista */
-  
-  nav ul li a {
-    color:red;
-  }
-  
-  nav ul {
-    color:blue;
-  }
-  
-  h1, h2, h3, h4 {
-    color: cyan;
-  }
-  
-  h1 {
-    color:cyan;
-  }
-  
-  h2 {
-    color:cyan;
-  }
-  
-  h3 {
-    color:cyan;
-  }
-  
-  h4 {
-    color:cyan;
-  }
-  
-  #navegador {
-    color:yellow;
-  }
-  
-  /* Clases de colores */
-  .azul {
-    background: blue;
-  }
-  
-  .rojo {
-    background: red;
-  }
-  
-  .negro {
-    background: black;
-  }
-  
-  .container {
-    margin: 30px 0px;
-  }
-  
-  .borde {
-    border: solid 2px;
-  }
-  
-  .cuadrado {
-    margin: 10px;
-    width: 50px;
-    height: 50px;
-    color: white;
-  }
-  
-  .flex {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-  
-  /*
-  .flex {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-  
-  .flex {
-    display: flex;
-    flex-direction: column;
-  }
-  */
-  
-  /*
-  .flex {
-    display: flex;
-    flex-direction: column;
-  }
-  */
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 90%;
+}
+
+.header, .footer {
+  background-color: #95eae2;
+  padding: 30px;
+ 
+  margin-bottom: 5px;
+  height: 10%;
+}
+
+.row {
+  display: flex;
+  height: 80%;
+}
+
+.nav, .article, .aside {
+  padding: 30px;
+  font-size: 35px;
+  margin-right: 5px;
+}
+
+.nav, .aside {
+  background-color: #f09eff;
+  width: 25%;
+}
+
+.article {
+  background-color: #7eadfd;
+  flex: 1; 
+}
+
+.aside {
+  background-color: #eef13a;
+  margin-right: 0;
+}
+
+.footer {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
