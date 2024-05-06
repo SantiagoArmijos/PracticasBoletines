@@ -26,7 +26,7 @@ function generarPreguntas(numero) {
     contenedorPadre.innerHTML = `<h2>Cuestionario</h2>`
     for (var i = 0; i < numero; i++) {
         //JS
-        listaPreguntas.push(new Pregunta(i+1, "pregunta"+i+1, "null"));
+        listaPreguntas.push(new Pregunta((i+1), "pregunta"+i+1, "null"));
         //HTML
         var seccion = document.createElement("section");
         seccion.classList.add("border", "rounded","p-3", "mb-3"); 
@@ -39,27 +39,34 @@ function generarPreguntas(numero) {
             <input type="text" class="form-control mb-3" placeholder="Respuesta...">
         `;
         contenedorPadre.appendChild(seccion);
-        // Agregar event listener al botón
-        var botonEditar = document.getElementById(`btn_editar_${i+1}`);
-        botonEditar.addEventListener('click', function(event) {
-            var idBoton = event.target.id;
-            editarPregunta(idBoton);
-        });
     }
+    
+    // Agregar un solo event listener para delegar los clics de los botones de edición
+    contenedorPadre.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('btn_editar')) {
+            var idBoton = event.target.id;
+            var idPregunta = idBoton.split('_')[2];
+            editarPregunta(idPregunta);
+        }
+    });
 }
 
 //Función para editar una pregunta
 function editarPregunta(id){
-    id = id.split('').filter(caracter => !isNaN(caracter)).join('');
     $('#modalEditarPregunta').modal('show');
     let btn_grabar_pregunta = document.querySelector('#btn_grabar_pregunta');
     let preguntaHTML = document.querySelector('#pregunta');
-    let pregunta_1 = document.querySelector('#pregunta_1');
+    let preguntaEdit = document.querySelector(`#pregunta_${id}`); // Seleccionar la pregunta específica con el ID recibido
     const pregunta = listaPreguntas.find(pregunta => pregunta.id === parseInt(id));
-    btn_grabar_pregunta.addEventListener('click', function(event){
-        event.preventDefault(); 
+    preguntaHTML.value = '';
+    // Verificamos si ya hay un evento de clic adjuntado al botón
+    if (btn_grabar_pregunta.clickHandler) {
+        btn_grabar_pregunta.removeEventListener('click', btn_grabar_pregunta.clickHandler);
+    }
+    btn_grabar_pregunta.clickHandler = function() {
+        // Modificamos la pregunta cuando se hace clic en el botón
         pregunta.pregunta = preguntaHTML.value;
-        pregunta_1.innerText = pregunta.pregunta;
-    });
+        preguntaEdit.innerText = pregunta.pregunta;
+    };
+    btn_grabar_pregunta.addEventListener('click', btn_grabar_pregunta.clickHandler);
 }
-
