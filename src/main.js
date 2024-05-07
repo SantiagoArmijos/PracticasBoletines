@@ -36,7 +36,8 @@ function generarPreguntas(numero) {
                 <h5 id="pregunta_${i+1}" class="mb-3">Pregunta ${i+1}</h5>
                 <button id="btn_editar_${i+1}" class="btn btn_editar mx-5"></button>
             </div>
-            <input type="text" class="form-control mb-3" placeholder="Respuesta...">
+            <h5>Respuesta</h5>
+            <div id="repuesta_${i+1}" class="mt-2 text-center border rounded p-3" style="display: none;"></div>
         `;
         contenedorPadre.appendChild(seccion);
     }
@@ -57,6 +58,7 @@ function editarPregunta(id){
     let btn_grabar_pregunta = document.querySelector('#btn_grabar_pregunta');
     let preguntaHTML = document.querySelector('#pregunta');
     let preguntaEdit = document.querySelector(`#pregunta_${id}`); // Seleccionar la pregunta específica con el ID recibido
+    let tipoPregunta = document.querySelector('#tipoPregunta');
     const pregunta = listaPreguntas.find(pregunta => pregunta.id === parseInt(id));
     preguntaHTML.value = '';
     // Verificamos si ya hay un evento de clic adjuntado al botón
@@ -66,7 +68,38 @@ function editarPregunta(id){
     btn_grabar_pregunta.clickHandler = function() {
         // Modificamos la pregunta cuando se hace clic en el botón
         pregunta.pregunta = preguntaHTML.value;
+        pregunta.tipo = tipoPregunta.value;
         preguntaEdit.innerText = pregunta.pregunta;
+        agregarRespuesta(pregunta.tipo, id);
     };
     btn_grabar_pregunta.addEventListener('click', btn_grabar_pregunta.clickHandler);
+}
+
+//Función para agregar la zona de respuesta
+function agregarRespuesta(tipo, id){
+    var contenedorRespuesta = document.querySelector(`#repuesta_${id}`);
+    contenedorRespuesta.style.display = "block";
+    contenedorRespuesta.innerHTML = "";
+    var seccion = document.createElement("section");
+    switch (tipo){
+        case 'pt':
+            seccion.innerHTML = `
+                <input type="text" class="form-control mb-3" placeholder="Escriba su respuesta">
+            `;
+            contenedorRespuesta.appendChild(seccion);
+            break;
+        case 'vf':
+            seccion.innerHTML = `
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respuesta" id="verdadero" value="verdadero">
+                    <label class="form-check-label" for="verdadero">Verdadero</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="respuesta" id="falso" value="falso">
+                    <label class="form-check-label" for="falso">Falso</label>
+                </div>
+            `;
+            contenedorRespuesta.appendChild(seccion);
+            break;    
+    }
 }

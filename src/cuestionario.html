@@ -78,7 +78,15 @@
                             <div class="form-group mt-2">
                                 <label>Escriba la pregunta</label>
                                 <input type="text" class="form-control" id="pregunta" min="0">
-                            </div>             
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="tipoPregunta">Seleccione el tipo</label>
+                                <select class="form-select" id="tipoPregunta">
+                                    <option value="pt">Pregunta de texto</option>
+                                    <option value="vf">Vedadero o falso</option>
+                                    <option value="om">Opción múltiple</option>
+                                </select>
+                            </div>            
                             <div class="modal-footer">
                                 <button type="button" id="btn_grabar_pregunta" class="btn btn_nuevo mt-2 mx-auto">Guardar Cambios</button>
                             </div>
