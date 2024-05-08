@@ -1,5 +1,7 @@
 let numero_secciones = document.querySelector('#numero_secciones');
 let btn_generar_seccion = document.querySelector('#btn_generar_seccion');
+var contenedorPadre = document.getElementById("contenedor_padre");
+let contenedor_btn_publicar = document.getElementById("contenedor_btn_publicar");
 
 //Clases
 class Pregunta {
@@ -13,6 +15,94 @@ class Pregunta {
 
 let listaPreguntas = [];
 
+let btn_publicar = document.querySelector('#btn_publicar');
+btn_publicar.addEventListener('click', ()=>{
+    if (listaPreguntas.length != 0) {
+        contenedor_btn_publicar.style.display = "none";
+        contenedorPadre.innerHTML = "";
+        listaPreguntas.forEach((pregunta) => {
+            // Crear un nuevo elemento div para representar la pregunta
+            const divPregunta = document.createElement('div');
+            divPregunta.classList.add('pregunta');
+            switch (pregunta.tipo) {
+                case 'pt':
+                    divPregunta.innerHTML = `
+                        <h3>${pregunta.pregunta}</h3>
+                        <h5>Respuesta</h5>
+                        <div class="mt-2 text-center border rounded p-3">
+                            <input type="text" class="form-control mb-3" placeholder="Escriba su respuesta">
+                        </div>
+                    `;
+                    break;
+                case 'vf':
+                    divPregunta.innerHTML = `
+                        <h3>${pregunta.pregunta}</h3>
+                        <h5>Respuesta</h5>
+                        <div class="mt-2 text-center border rounded p-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="respuesta_${pregunta.id}" value="verdadero">
+                                <label class="form-check-label">Verdadero</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="respuesta_${pregunta.id}" value="falso">
+                                <label class="form-check-label">Falso</label>
+                            </div>
+                        </div>
+                    `;
+                    break;    
+                case 'omu':
+                    let opcionesHTML = '';
+                    pregunta.listaOpcionMultiple.forEach((opcion, index) => {
+                        opcionesHTML += `
+                            <div class="d-flex mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="opcion_${pregunta.id}" ${index === 0 ? 'checked' : ''}>
+                                </div>
+                                <input type="text" id="opcion_${pregunta.id}_${index}" value="${opcion}" readonly>
+                            </div>
+                        `;
+                    });
+                    divPregunta.innerHTML = `
+                        <h3>${pregunta.pregunta}</h3>
+                        <h5>Respuesta</h5>
+                        <div class="mt-2 text-center border rounded p-3">
+                            <div id="contenedor_una_respuesta_${pregunta.id}" class="position-relative">
+                                ${opcionesHTML}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'omv':
+                    let opcionesHTMLV = '';
+                    pregunta.listaOpcionMultiple.forEach((opcion, index) => {
+                        opcionesHTMLV += `
+                            <div class="d-flex mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="opcionV_${pregunta.id}" ${index === 0 ? 'checked' : ''}>
+                                </div>
+                                <input type="text" id="opcionV_${pregunta.id}_${index}" value="${opcion}" readonly>
+                            </div>
+                        `;
+                    });
+                    divPregunta.innerHTML = `
+                        <h3>${pregunta.pregunta}</h3>
+                        <h5>Respuesta</h5>
+                        <div class="mt-2 text-center border rounded p-3">
+                            <div id="contenedor_una_respuesta_${pregunta.id}" class="position-relative">
+                                ${opcionesHTMLV}
+                            </div>
+                        </div>
+                    `;
+            }
+            
+
+            // Agregar la pregunta al contenedor de preguntas
+            contenedorPadre.appendChild(divPregunta);
+        });
+    }
+});
+
+
 btn_generar_seccion.addEventListener('click', function(event){
     event.preventDefault(); 
     generarPreguntas(numero_secciones.value);
@@ -20,8 +110,11 @@ btn_generar_seccion.addEventListener('click', function(event){
 
 //Funciones
 function generarPreguntas(numero) {
-    var contenedorPadre = document.getElementById("contenedor_padre");
+    listaPreguntas = [];
+    
+    //var contenedorPadre = document.getElementById("contenedor_padre");
     contenedorPadre.style.display = "block";
+    contenedor_btn_publicar.style.display = "block";
     contenedorPadre.innerHTML = "";
     contenedorPadre.innerHTML = `<h2>Cuestionario</h2>`
     for (var i = 0; i < numero; i++) {
@@ -164,7 +257,6 @@ function agregarRespuesta(tipo, id){
                 const btnGuardarOpcion = seccion.querySelector(`#btn_guardar_opcion_${id}`);
                 btnGuardarOpcion.addEventListener('click', () => {
                     for (var j = 1; j <= i; j++) {
-                        console.log(document.querySelector(`#opcion_${j}`).value);
                         pregunta.listaOpcionMultiple.push(seccion.querySelector(`#opcion_${j}`).value);
                     }
                 });
