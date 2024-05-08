@@ -70,7 +70,6 @@ function editarPregunta(id){
     var seccion1 = document.createElement("section");
 
     tipoPregunta.addEventListener('change', function() {
-        let seleccionado = tipoPregunta.value;
         if (tipoPregunta.value === 'om'){
             om_region.style.display = 'block';
             om_region.appendChild(seccion1);
@@ -98,46 +97,127 @@ function agregarRespuesta(tipo, id){
     contenedorRespuesta.style.display = "block";
     contenedorRespuesta.innerHTML = "";
     var seccion = document.createElement("section");
+    let i = 1;//Contador de clics
     switch (tipo) {
         case 'pt':
             seccion.innerHTML = `
                 <input type="text" class="form-control mb-3" placeholder="Escriba su respuesta">
             `;
             contenedorRespuesta.appendChild(seccion);
+            pregunta.tipo = 'pt';
             break;
         case 'vf':
             seccion.innerHTML = `
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="respuesta" id="verdadero" value="verdadero">
-                    <label class="form-check-label" for="verdadero">Verdadero</label>
+                    <input class="form-check-input" type="radio" name="respuesta_${id}" value="verdadero">
+                    <label class="form-check-label">Verdadero</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="respuesta" id="falso" value="falso">
-                    <label class="form-check-label" for="falso">Falso</label>
+                    <input class="form-check-input" type="radio" name="respuesta_${id}" value="falso">
+                    <label class="form-check-label">Falso</label>
                 </div>
             `;
             contenedorRespuesta.appendChild(seccion);
+            pregunta.tipo = 'vf';
             break;
         case 'om':
             if (unaRespuesta.checked) {
                 seccion.innerHTML = `
-                    <div id="contenedor_una_respuesta">
-                        <div class="d-flex">
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="opcion" id="una_respuesta" checked>
+                <div id="contenedor_una_respuesta_${id}" class="position-relative">
+                    <div class="d-flex">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="opcion_${id}" checked>
                         </div>
-                        <input type="text" id="input_texto">
-                        </div>
-                        
+                        <input type="text" id="opcion_${i}">
                     </div>
+                    <div class="d-flex mt-2 position-relative">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="opcion_${id}">
+                        </div>
+                        <input type="text" id="opcion_${i+1}">
+                    </div>
+                    <div class="d-flex mt-2 position-absolute top-0 end-0">
+                        <button id="btn_agregar_opcion_${id}" type="button" class="btn btn_nuevo  mx-2">+</button>
+                        <button id="btn_guardar_opcion_${id}" type="button" class="btn btn_nuevo  mx-2">Aceptar</button>
+                    </div>
+                </div>
                 `;
                 contenedorRespuesta.appendChild(seccion);
+                const btnAgregarOpcion = seccion.querySelector(`#btn_agregar_opcion_${id}`);
+                i=2;
+                btnAgregarOpcion.addEventListener('click', () => {
+                    // Incrementar el contador
+                    i++;
+                    // Crear los elementos de radio button y campo de texto
+                    const nuevaOpcionDiv = document.createElement('div');
+                    nuevaOpcionDiv.classList.add('d-flex', 'mt-2');
+                    nuevaOpcionDiv.innerHTML = `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="opcion_${id}">
+                        </div>
+                        <input type="text" id="opcion_${i}">
+                    `;
+                    // Adjuntar la nueva opción debajo de las anteriores
+                    seccion.appendChild(nuevaOpcionDiv);
+                });
+                pregunta.tipo = 'omu';   
+                const btnGuardarOpcion = seccion.querySelector(`#btn_guardar_opcion_${id}`);
+                btnGuardarOpcion.addEventListener('click', () => {
+                    for (var j = 1; j <= i; j++) {
+                        console.log(document.querySelector(`#opcion_${j}`).value);
+                        pregunta.listaOpcionMultiple.push(seccion.querySelector(`#opcion_${j}`).value);
+                    }
+                });
             }
             if (variasRespuestas.checked) {
-                seccion.innerHTML = `<h1>A</h1>`;
+                i=1;
+                seccion.innerHTML = `
+                <div id="contenedor_una_respuesta_${id}" class="position-relative">
+                    <div class="d-flex">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="opcionV_${id}" checked>
+                        </div>
+                        <input type="text" id="opcionV_${i}">
+                    </div>
+                    <div class="d-flex mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="opcionV_${id}">
+                        </div>
+                        <input type="text" id="opcionV_${i+1}">
+                    </div>
+                    <div class="d-flex mt-2 position-absolute top-0 end-0">
+                        <button id="btn_agregar_opcionV_${id}" type="button" class="btn btn_nuevo  mx-2">+</button>
+                        <button id="btn_guardar_opcionV_${id}" type="button" class="btn btn_nuevo  mx-2">Aceptar</button>
+                    </div>
+                </div>
+                `;
                 contenedorRespuesta.appendChild(seccion);
+                const btnAgregarOpcion = seccion.querySelector(`#btn_agregar_opcionV_${id}`);
+                i=2;
+                btnAgregarOpcion.addEventListener('click', () => {
+                    // Incrementar el contador
+                    i++;
+                    // Crear los elementos de checkbox y campo de texto
+                    const nuevaOpcionDiv = document.createElement('div');
+                    nuevaOpcionDiv.classList.add('d-flex', 'mt-2');
+                    nuevaOpcionDiv.innerHTML = `
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="opcionV__${id}">
+                        </div>
+                        <input type="text" id="opcionV_${i}">
+                    `;
+                    // Adjuntar la nueva opción debajo de las anteriores
+                    seccion.appendChild(nuevaOpcionDiv);
+                });
+                pregunta.tipo = 'omv';
+                const btnGuardarOpcion = seccion.querySelector(`#btn_guardar_opcionV_${id}`);
+                btnGuardarOpcion.addEventListener('click', () => {
+                    for (var j = 1; j <= i; j++) {
+                        console.log(document.querySelector(`#opcionV_${j}`).value);
+                        pregunta.listaOpcionMultiple.push(seccion.querySelector(`#opcionV_${j}`).value);
+                    }
+                });
             }
-            //agregarOpcion(pregunta);
             break;        
     }
 }
