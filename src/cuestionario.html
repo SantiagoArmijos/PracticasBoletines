@@ -73,7 +73,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
+                    <div id="contenedor_frm" class="container">
                         <form id="frm_modificar_pregunta">
                             <div class="form-group mt-2">
                                 <label>Escriba la pregunta</label>
@@ -87,6 +87,21 @@
                                     <option value="om">Opción múltiple</option>
                                 </select>
                             </div>            
+                            <div id="om_region" class="form-group mt-2 flex mb-2" style="display: none;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="opcion" id="una_respuesta" checked>
+                                            <label class="form-check-label" for="opcion1">Una sola respuesta</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="opcion" id="varias_respuestas">
+                                            <label class="form-check-label" for="opcion2">Varias respuestas</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="contenedor_om" style="display: none;"></div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" id="btn_grabar_pregunta" class="btn btn_nuevo mt-2 mx-auto">Guardar Cambios</button>
                             </div>

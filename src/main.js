@@ -59,12 +59,26 @@ function editarPregunta(id){
     let preguntaHTML = document.querySelector('#pregunta');
     let preguntaEdit = document.querySelector(`#pregunta_${id}`); // Seleccionar la pregunta específica con el ID recibido
     let tipoPregunta = document.querySelector('#tipoPregunta');
+    const om_region = document.querySelector('#om_region');
+    
     const pregunta = listaPreguntas.find(pregunta => pregunta.id === parseInt(id));
     preguntaHTML.value = '';
     // Verificamos si ya hay un evento de clic adjuntado al botón
     if (btn_grabar_pregunta.clickHandler) {
         btn_grabar_pregunta.removeEventListener('click', btn_grabar_pregunta.clickHandler);
     }
+    var seccion1 = document.createElement("section");
+
+    tipoPregunta.addEventListener('change', function() {
+        let seleccionado = tipoPregunta.value;
+        if (tipoPregunta.value === 'om'){
+            om_region.style.display = 'block';
+            om_region.appendChild(seccion1);
+        }else{
+            om_region.style.display = 'none';
+        }
+    });
+
     btn_grabar_pregunta.clickHandler = function() {
         // Modificamos la pregunta cuando se hace clic en el botón
         pregunta.pregunta = preguntaHTML.value;
@@ -78,10 +92,13 @@ function editarPregunta(id){
 //Función para agregar la zona de respuesta
 function agregarRespuesta(tipo, id){
     var contenedorRespuesta = document.querySelector(`#repuesta_${id}`);
+    const pregunta = listaPreguntas.find(pregunta => pregunta.id === parseInt(id));
+    const unaRespuesta = document.querySelector('#una_respuesta');
+    const variasRespuestas = document.querySelector('#varias_respuestas');
     contenedorRespuesta.style.display = "block";
     contenedorRespuesta.innerHTML = "";
     var seccion = document.createElement("section");
-    switch (tipo){
+    switch (tipo) {
         case 'pt':
             seccion.innerHTML = `
                 <input type="text" class="form-control mb-3" placeholder="Escriba su respuesta">
@@ -100,6 +117,34 @@ function agregarRespuesta(tipo, id){
                 </div>
             `;
             contenedorRespuesta.appendChild(seccion);
-            break;    
+            break;
+        case 'om':
+            if (unaRespuesta.checked) {
+                seccion.innerHTML = `
+                    <div id="contenedor_una_respuesta">
+                        <div class="d-flex">
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="opcion" id="una_respuesta" checked>
+                        </div>
+                        <input type="text" id="input_texto">
+                        </div>
+                        
+                    </div>
+                `;
+                contenedorRespuesta.appendChild(seccion);
+            }
+            if (variasRespuestas.checked) {
+                seccion.innerHTML = `<h1>A</h1>`;
+                contenedorRespuesta.appendChild(seccion);
+            }
+            //agregarOpcion(pregunta);
+            break;        
     }
+}
+
+//Funcion para agregar opciones a las pe¿reguntas de opcion múltiple
+function agregarOpcion (pregutna){
+    let contenedor_om = document.querySelector('#contenedor_om');
+    contenedor_om.style.display = "block";
+    let opcion = document.createElement("section");
 }
