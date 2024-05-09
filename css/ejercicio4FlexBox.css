@@ -1,0 +1,60 @@
+body {
+    margin: 8px;
+}
+
+h2 {
+    padding: 12px;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    gap: 10px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav {
+    flex: 0 0 15%;
+    background-color: #ffcf29;
+}
+
+.container_2 {
+    flex: 3;
+}
+
+.header {
+    flex: 1;
+    height: 10vh;
+    background-color: #ffcf29;
+}
+
+.sections_aside {
+    flex: 2;
+    display: flex;
+    gap: 5px;
+}
+
+.sections {
+    flex: 2;
+}
+
+.section {
+    flex: 2;
+    background-color: #ffcf29;
+}
+
+.aside {
+    flex: 1;
+    flex: 0 0 15%;
+    background-color: #ffcf29;
+}
+
+.footer{
+    flex: 1;
+    background-color: #ffcf29;
+}
